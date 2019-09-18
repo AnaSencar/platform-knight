@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 472011472}
   - component: {fileID: 472011473}
   m_Layer: 0
-  m_Name: Effect
+  m_Name: AttackCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2733,6 +2733,7 @@ GameObject:
   - component: {fileID: 1838243289}
   - component: {fileID: 1838243290}
   - component: {fileID: 1838243291}
+  - component: {fileID: 1838243292}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2886,9 +2887,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddfc7404b22ec744fbdf5b1e658a6ad8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  effectSpawnLocation: {fileID: 472011471}
-  effectPrefab: {fileID: 8479171416093938958, guid: 50d8b4ec47492ca4a82c480bb7091e35,
+  projectileSpawnLocation: {fileID: 472011471}
+  projectilePrefab: {fileID: 5230135686346746953, guid: d29b58bda53fb4e489f3537d8038c76b,
     type: 3}
+--- !u!114 &1838243292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838243284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e53dbe83be0e454db3ced24a898085a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDamange: 10
+  maxHealth: 100
+  currentHealth: 0
+  maxMana: 20
+  currentMana: 0
 --- !u!1 &1982533653
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,6 +10,5 @@ public class PlayerAttackCollision : MonoBehaviour
         {
             Debug.Log("Collided with enemy");
         }
-        Debug.Log(collision.gameObject);
     }
 }
