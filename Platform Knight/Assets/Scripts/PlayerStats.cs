@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerStats : MonoBehaviour
 {
-    [SerializeField] private int attackDamange = 10;
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private int currentHealth;
     [SerializeField] private int maxMana = 20;
     [SerializeField] private int currentMana;
 
@@ -20,8 +17,7 @@ public class PlayerStats : MonoBehaviour
 
     private void Awake()
     {
-        currentHealth = maxHealth;
-        currentMana = maxMana;
+        currentMana = 0;
     }
 
     // Start is called before the first frame update

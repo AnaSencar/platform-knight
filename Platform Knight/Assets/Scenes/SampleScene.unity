@@ -162,7 +162,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.27591354, y: 0.053402394}
@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c834273c5bc368f47a166cdff4a48b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackType: {fileID: 0}
 --- !u!1 &513008728
 GameObject:
   m_ObjectHideFlags: 0
@@ -2600,6 +2601,9 @@ GameObject:
   - component: {fileID: 1428575353}
   - component: {fileID: 1428575355}
   - component: {fileID: 1428575352}
+  - component: {fileID: 1428575357}
+  - component: {fileID: 1428575356}
+  - component: {fileID: 1428575358}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -2617,7 +2621,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -2691,7 +2695,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428575351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.42, y: -2.46, z: 0}
+  m_LocalPosition: {x: 3.42, y: -1.74, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2705,7 +2709,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1428575351}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -2718,6 +2722,53 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1428575356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428575351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45493b1e3df3fa6459abccf4471d1e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1428575357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428575351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd89723715a465458740e6517fd0f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
+  currentHealth: 0
+  maxMana: 0
+  currentMana: 0
+--- !u!95 &1428575358
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428575351}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 99d24dab326aa9745a4a089b04e743a3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1838243284
 GameObject:
   m_ObjectHideFlags: 0
@@ -2734,6 +2785,8 @@ GameObject:
   - component: {fileID: 1838243290}
   - component: {fileID: 1838243291}
   - component: {fileID: 1838243292}
+  - component: {fileID: 1838243294}
+  - component: {fileID: 1838243293}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -2839,7 +2892,7 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1838243289
@@ -2890,6 +2943,9 @@ MonoBehaviour:
   projectileSpawnLocation: {fileID: 472011471}
   projectilePrefab: {fileID: 5230135686346746953, guid: d29b58bda53fb4e489f3537d8038c76b,
     type: 3}
+  attackTypes:
+  - {fileID: 11400000, guid: b631db4bdfd7bd1498ac94e0ff69e8ff, type: 2}
+  - {fileID: 11400000, guid: b1ba38d88593c1844a530cbd933b9471, type: 2}
 --- !u!114 &1838243292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2902,10 +2958,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e53dbe83be0e454db3ced24a898085a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamange: 10
+  maxMana: 20
+  currentMana: 0
+--- !u!114 &1838243293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838243284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45493b1e3df3fa6459abccf4471d1e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1838243294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1838243284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd89723715a465458740e6517fd0f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxHealth: 100
   currentHealth: 0
-  maxMana: 20
+  maxMana: 0
   currentMana: 0
 --- !u!1 &1982533653
 GameObject:

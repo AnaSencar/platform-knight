@@ -6,11 +6,14 @@ public class PlayerAttack : MonoBehaviour
 {
     [SerializeField] private Transform projectileSpawnLocation;
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private AttackTypes[] attackTypes;
 
     private Animator animator;
     private BoxCollider2D boxCollider;
-    private PlayerStats playerStats;
     private float facingDirectionAtTimeOfAttack;
+    private AttackTypes currentAttackType;
+    private int attackTypeIndex;
+    private PlayerAttackCollision playerAC;
 
     private bool isPlayerUsingRangedAttack = false;
 
@@ -26,7 +29,7 @@ public class PlayerAttack : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         boxCollider = GetComponentInChildren<BoxCollider2D>();
-        playerStats = GetComponent<PlayerStats>();
+        playerAC = GetComponentInChildren<PlayerAttackCollision>();
         boxCollider.enabled = false;
     }
 
@@ -42,11 +45,18 @@ public class PlayerAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             StartCoroutine(Attack("Attack"));
+            detectAttackType("Attack");
+            currentAttackType = attackTypes[attackTypeIndex];
+            playerAC.AttackType = currentAttackType;
+
         }
         else if (Input.GetKeyDown(KeyCode.R))
         {
             isPlayerUsingRangedAttack = true;
             StartCoroutine(Attack("CastAttack"));
+            detectAttackType("Attack2");
+            currentAttackType = attackTypes[attackTypeIndex];
+            playerAC.AttackType = currentAttackType;
         }
     }
 
@@ -61,6 +71,18 @@ public class PlayerAttack : MonoBehaviour
             facingDirectionAtTimeOfAttack = transform.localScale.x; 
             Instantiate(projectilePrefab, newSpawnPosition, newRotationForPosition);
             isPlayerUsingRangedAttack = false;
+        }
+    }
+
+    private void detectAttackType(string attackName)
+    {
+        for (int i = 0; i < attackTypes.Length; i++)
+        {
+            if(attackTypes[i].name == attackName)
+            {
+                attackTypeIndex = i;
+                i = attackTypes.Length + 1;
+            }
         }
     }
 

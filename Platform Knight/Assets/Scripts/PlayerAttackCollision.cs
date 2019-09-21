@@ -4,11 +4,22 @@ using UnityEngine;
 
 public class PlayerAttackCollision : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    [SerializeField] private AttackTypes attackType;
+
+    public AttackTypes AttackType
+    {
+        set
+        {
+            attackType = value;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
-            Debug.Log("Collided with enemy");
+            Health health = collision.gameObject.GetComponent<Health>();
+            health.TakeDamage(10);
         }
     }
 }
