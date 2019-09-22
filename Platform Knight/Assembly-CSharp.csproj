@@ -64,8 +64,11 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\AttackTypes.cs" />
     <Compile Include="Assets\Scripts\BasicStats.cs" />
+    <Compile Include="Assets\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\EnemyChangeDirection.cs" />
+    <Compile Include="Assets\Scripts\EnemyChangeVerticalDirection.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
+    <Compile Include="Assets\Scripts\EnemyMovementVertical.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\PlayerAttack.cs" />
     <Compile Include="Assets\Scripts\PlayerAttackCollision.cs" />
