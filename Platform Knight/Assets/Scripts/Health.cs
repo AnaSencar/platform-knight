@@ -18,7 +18,7 @@ public class Health : MonoBehaviour
         if (basicStats.CurrentHealth <= 0)
         {
             isDead = true;
-            Die();
+            StartCoroutine(Die());
         }
         else
         {
@@ -26,9 +26,10 @@ public class Health : MonoBehaviour
         }
     }
 
-    private void Die()
+    private IEnumerator Die()
     {
         GetComponent<Animator>().SetTrigger("Dead");
+        yield return new WaitForEndOfFrame();
         Destroy(gameObject, GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
     }
 

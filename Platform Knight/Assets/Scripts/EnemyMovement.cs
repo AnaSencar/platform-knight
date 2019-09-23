@@ -7,6 +7,14 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float movementSpeed = 1f;
     private Rigidbody2D rigidBody;
 
+    public float MovementSpeed
+    {
+        get
+        {
+            return movementSpeed;
+        }
+    }
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
