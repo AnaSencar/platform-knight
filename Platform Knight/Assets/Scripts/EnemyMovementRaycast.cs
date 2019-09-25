@@ -10,7 +10,9 @@ public class EnemyMovementRaycast : MonoBehaviour
     [SerializeField] private float howFarFromWallToTurnAround = 0.5f;
     [SerializeField] private bool isOnFloatingPlatform = false;
     [SerializeField] private bool shouldRotate = false;
+    [SerializeField] private bool isWalkingRightForRotating = true;
     [SerializeField] private float rotationDegrees = 0;
+    [SerializeField] private float howMuchToMoveForRotation = 1f;
     private Rigidbody2D rigidBody;
     private float rayDistance = 2f;
 
@@ -26,6 +28,10 @@ public class EnemyMovementRaycast : MonoBehaviour
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.velocity = movementDirection.normalized * movementSpeed;
+        if (!isWalkingRightForRotating)
+        {
+            howMuchToMoveForRotation *= -1f;
+        }
     }
 
     // Update is called once per frame
@@ -34,7 +40,9 @@ public class EnemyMovementRaycast : MonoBehaviour
         Vector2 checkRayVector = rigidBody.velocity;
         if (isOnFloatingPlatform)
         {
-            checkRayVector = Vector2.down;
+            //checkRayVector = Vector2.down;
+            //checkRayVector = new Vector2(rigidBody.velocity.y, -rigidBody.velocity.x);
+            checkRayVector = -transform.up;
         }
         //if should chase, call chaseplayer else code below
         RaycastHit2D hit = Physics2D.Raycast(groundDetection.position, checkRayVector, rayDistance, LayerMask.GetMask("Ground"));
@@ -50,9 +58,16 @@ public class EnemyMovementRaycast : MonoBehaviour
         }
         else if (hit.collider == null && isOnFloatingPlatform)
         {
-            ChangeDirection();
+            if (!shouldRotate)
+            {
+                ChangeDirection();
+            }
+            else
+            {
+                RotateAround();
+            }
         }
-        if (IsEnemyMoving())
+        if (IsEnemyMoving() && !shouldRotate)
         {
             ChangeSpritePosition();
         }
@@ -75,9 +90,32 @@ public class EnemyMovementRaycast : MonoBehaviour
 
     private void RotateAround()
     {
-        transform.Rotate(0f, 0f, 90f);
+        transform.Rotate(0f, 0f, rotationDegrees);
+        if (Mathf.Approximately(transform.rotation.eulerAngles.z, 270f))
+        {
+            rigidBody.transform.position = new Vector2(transform.position.x, transform.position.y - howMuchToMoveForRotation);
+        }
+        else if (Mathf.Approximately(transform.rotation.eulerAngles.z, 90f))
+        {
+            rigidBody.transform.position = new Vector2(transform.position.x, transform.position.y + howMuchToMoveForRotation);
+        }
+        else if (Mathf.Approximately(transform.rotation.eulerAngles.z, 180f))
+        {
+            rigidBody.transform.position = new Vector2(transform.position.x - howMuchToMoveForRotation, transform.position.y);
+        }
+        else if (Mathf.Approximately(transform.rotation.eulerAngles.z, 0f))
+        {
+            rigidBody.transform.position = new Vector2(transform.position.x + howMuchToMoveForRotation, transform.position.y);
+        }
+        if (isWalkingRightForRotating)
+        {
+            rigidBody.velocity = transform.right * movementSpeed;
+        }
+        else
+        {
+            rigidBody.velocity = -transform.right * movementSpeed;
+        }
     }
 
     //private void chaseplayer(){...}
-
 }
