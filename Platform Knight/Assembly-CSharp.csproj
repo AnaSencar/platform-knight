@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\EnemyChangeVerticalDirection.cs" />
     <Compile Include="Assets\Scripts\EnemyCrawlerMovement.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
+    <Compile Include="Assets\Scripts\EnemyMovementRaycast.cs" />
     <Compile Include="Assets\Scripts\EnemyMovementVertical.cs" />
     <Compile Include="Assets\Scripts\Health.cs" />
     <Compile Include="Assets\Scripts\PlayerAttack.cs" />

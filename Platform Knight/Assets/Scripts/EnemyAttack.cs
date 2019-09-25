@@ -35,14 +35,46 @@ public class EnemyAttack : MonoBehaviour
             StopAllCoroutines();
             StartCoroutine(ChasePlayer());
         }
+        if (shouldAttack)
+        {
+            StopAllCoroutines();
+            enemyState = EnemyState.attacking;
+        }
+
+        //
+        switch (enemyState)
+        {
+            case EnemyState.walking:
+                //TODO 
+                //call walk function
+                if(distanceBetweenEnemyAndPlayer <= detectPlayerRange)
+                {
+                    //exit walking 
+                    //enter chase()-> enemystate.chasing
+                    
+                }
+                break;
+            case EnemyState.chasing:
+                //TODO 
+                //call chase function
+                //if(further) exit chase+enter walk
+                //else excit chase + enter attack
+                break;
+            case EnemyState.attacking:
+                //TODO 
+                break;
+        }
+
+        //transform.localScale = new Vector2(Mathf.Sign(GetComponent<Rigidbody2D>().velocity.x), 1f);
     }
 
     private IEnumerator ChasePlayer()
     {
         enemyState = EnemyState.chasing;
-        while (distanceBetweenEnemyAndPlayer > attackRange)
+        while (distanceBetweenEnemyAndPlayer >= attackRange)
         {
-            transform.position = Vector2.MoveTowards(transform.position, new Vector2(FindObjectOfType<PlayerMovement>().transform.position.x, transform.position.y), GetComponent<EnemyMovement>().MovementSpeed * Time.deltaTime);
+            //movement.chaseplayer(bool shouldchase);
+            transform.position = Vector2.MoveTowards(transform.position, new Vector2(FindObjectOfType<PlayerMovement>().transform.position.x, transform.position.y), GetComponent<EnemyMovementRaycast>().MovementSpeed * Time.deltaTime);
             yield return new WaitForEndOfFrame();
         }
     }
