@@ -2558,12 +2558,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   groundDetection: {fileID: 1146825922}
-  movementDirection: {x: -1, y: 0}
+  movementDirection: {x: 1, y: 0}
   howFarFromWallToTurnAround: 0.5
   isOnFloatingPlatform: 1
   shouldRotate: 1
-  isWalkingRightForRotating: 0
-  rotationDegrees: 90
+  isWalkingRightForRotating: 1
+  rotationDegrees: -90
   howMuchToMoveForRotation: 1
 --- !u!70 &787881527
 CapsuleCollider2D:
@@ -2761,7 +2761,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1146825921}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: -0.32, z: 0}
+  m_LocalPosition: {x: -0.42, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 787881530}
@@ -4435,7 +4435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2046611348
 MonoBehaviour:
   m_ObjectHideFlags: 0

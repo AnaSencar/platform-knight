@@ -40,8 +40,6 @@ public class EnemyMovementRaycast : MonoBehaviour
         Vector2 checkRayVector = rigidBody.velocity;
         if (isOnFloatingPlatform)
         {
-            //checkRayVector = Vector2.down;
-            //checkRayVector = new Vector2(rigidBody.velocity.y, -rigidBody.velocity.x);
             checkRayVector = -transform.up;
         }
         //if should chase, call chaseplayer else code below
@@ -50,7 +48,6 @@ public class EnemyMovementRaycast : MonoBehaviour
         {
             Vector2 objectPosition = new Vector2(groundDetection.transform.position.x, groundDetection.transform.position.y);
             float distanceRayCollision = (hit.point - objectPosition).magnitude;
-            Debug.Log(distanceRayCollision);
             if (distanceRayCollision < howFarFromWallToTurnAround)
             {
                 ChangeDirection();
@@ -91,22 +88,7 @@ public class EnemyMovementRaycast : MonoBehaviour
     private void RotateAround()
     {
         transform.Rotate(0f, 0f, rotationDegrees);
-        if (Mathf.Approximately(transform.rotation.eulerAngles.z, 270f))
-        {
-            rigidBody.transform.position = new Vector2(transform.position.x, transform.position.y - howMuchToMoveForRotation);
-        }
-        else if (Mathf.Approximately(transform.rotation.eulerAngles.z, 90f))
-        {
-            rigidBody.transform.position = new Vector2(transform.position.x, transform.position.y + howMuchToMoveForRotation);
-        }
-        else if (Mathf.Approximately(transform.rotation.eulerAngles.z, 180f))
-        {
-            rigidBody.transform.position = new Vector2(transform.position.x - howMuchToMoveForRotation, transform.position.y);
-        }
-        else if (Mathf.Approximately(transform.rotation.eulerAngles.z, 0f))
-        {
-            rigidBody.transform.position = new Vector2(transform.position.x + howMuchToMoveForRotation, transform.position.y);
-        }
+        rigidBody.transform.position += transform.right * howMuchToMoveForRotation;
         if (isWalkingRightForRotating)
         {
             rigidBody.velocity = transform.right * movementSpeed;
