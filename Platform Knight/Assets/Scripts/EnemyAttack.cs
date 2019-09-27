@@ -9,6 +9,8 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private bool shouldChasePlayer = false;
     [SerializeField] private float attackCooldown;
+    [SerializeField] private bool isRanged = false;
+    [SerializeField] private GameObject projectile;
 
     private float distanceBetweenEnemyAndPlayer;
     private float timeOfLastAttack = 0f;
@@ -17,12 +19,23 @@ public class EnemyAttack : MonoBehaviour
 
     enum EnemyState
     {
+        guarding,
         walking,
-        attacking,
-        chasing
+        chasing,
+        attackingMelee,
+        attackingRanged,
+        dead
     }
 
     EnemyState enemyState = EnemyState.walking;
+
+    public int AttackDamage
+    {
+        get
+        {
+            return attackDamage;
+        }
+    }
 
     private void Awake()
     {
@@ -30,85 +43,61 @@ public class EnemyAttack : MonoBehaviour
         boxCollider = GetComponentInChildren<BoxCollider2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         distanceBetweenEnemyAndPlayer = Vector2.Distance(FindObjectOfType<PlayerMovement>().transform.position, transform.position);
-        //bool shouldWalk = distanceBetweenEnemyAndPlayer > detectPlayerRange;
-        //bool shouldChase = distanceBetweenEnemyAndPlayer <= detectPlayerRange && distanceBetweenEnemyAndPlayer > attackRange;
-        //bool shouldAttack = distanceBetweenEnemyAndPlayer <= attackRange;
-        //if (shouldWalk)
-        //{
-        //    enemyState = EnemyState.walking;
-        //}
-        //if (shouldChase)
-        //{
-        //    StateChasePlayer();
-        //}
-        //if (shouldAttack && (Time.time - timeOfLastAttack > attackCooldown))
-        //{
-        //    AttackTarget();
-        //    timeOfLastAttack = Time.deltaTime;
-        //}
-
         bool isItTimeToAttackAgain = Time.time - timeOfLastAttack > attackCooldown;
-        Debug.Log(Time.time - timeOfLastAttack);
-        Debug.Log(isItTimeToAttackAgain);
-
-        //
+        Health enemyHealth = GetComponent<Health>();
+        if (enemyHealth.IsDead)
+        {
+            enemyState = EnemyState.dead;
+        }
         switch (enemyState)
         {
+            case EnemyState.guarding:
+                if (distanceBetweenEnemyAndPlayer <= attackRange)
+                {
+                    SwitchState(EnemyState.attackingRanged);
+                }
+                break;
             case EnemyState.walking:
-                Debug.Log("Walking");
                 if(distanceBetweenEnemyAndPlayer <= detectPlayerRange)
                 {
-                    enemyState = EnemyState.chasing;
-                    Debug.Log("Switching to chase");
+                    SwitchState(EnemyState.chasing);
                 }
                 break;
             case EnemyState.chasing:
-                StateChasePlayer();
+                ChasePlayer();
                 if(distanceBetweenEnemyAndPlayer > detectPlayerRange)
                 {
-                    Debug.Log("switch to walk");
-                    enemyState = EnemyState.walking;
+                    SwitchState(EnemyState.walking);
                 }
                 else if (distanceBetweenEnemyAndPlayer <= attackRange)
                 {
-                    Debug.Log("switch to attack");
-                    enemyState = EnemyState.attacking;
-                    AttackTarget();
-                    timeOfLastAttack = Time.time;
-                    
-
+                    SwitchState(EnemyState.attackingMelee);
                 }
-
-
-                //TODO 
-                //call chase function
-                //if(further) exit chase+enter walk
-                //else excit chase + enter attack
                 break;
-            case EnemyState.attacking:
-                //TODO 
-                StateChasePlayer();
-                Debug.Log("in attack");
-                
+            case EnemyState.attackingMelee:
+                ChasePlayer();
                 if (isItTimeToAttackAgain)
                 {
-                    enemyState = EnemyState.chasing;
-                    Debug.Log("back to chase");
+                    SwitchState(EnemyState.chasing);
                 }
                 break;
+            case EnemyState.attackingRanged:
+                if (isItTimeToAttackAgain)
+                {
+                    SwitchState(EnemyState.guarding);
+                }
+                break;
+            case EnemyState.dead:
+                GetComponent<EnemyMovement>().StopMoving();
+                break;
         }
-
-
-
     }
 
-    private void StateChasePlayer()
+    private void ChasePlayer()
     {
-        //enemyState = EnemyState.chasing;
         if (distanceBetweenEnemyAndPlayer <= attackRange)
         {
             GetComponent<EnemyMovement>().StopMoving();
@@ -119,10 +108,14 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    private void AttackTarget()
+    private void AttackMelee()
     {
         animator.SetTrigger("Attack");
-        Debug.Log("do animation");
+    }
+
+    private void AttackRanged()
+    {
+
     }
 
     private void SwitchState(EnemyState newState)
@@ -135,10 +128,12 @@ public class EnemyAttack : MonoBehaviour
     {
         switch (enemyState)
         {
+            case EnemyState.walking:
+                break;
             case EnemyState.chasing:
                 break;
-            case EnemyState.attacking:
-                AttackTarget();
+            case EnemyState.attackingMelee:
+                AttackMelee();
                 timeOfLastAttack = Time.time;
                 break;
         }

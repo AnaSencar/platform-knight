@@ -7,6 +7,14 @@ public class Health : MonoBehaviour
     private BasicStats basicStats;
     private bool isDead = false;
 
+    public bool IsDead
+    {
+        get
+        {
+            return isDead;
+        }
+    }
+
     private void Awake()
     {
         basicStats = GetComponent<BasicStats>();
