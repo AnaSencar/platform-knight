@@ -41,6 +41,10 @@ public class EnemyAttack : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         boxCollider = GetComponentInChildren<BoxCollider2D>();
+        if (isRanged)
+        {
+            enemyState = EnemyState.guarding;
+        }
     }
 
     void Update()
@@ -55,6 +59,10 @@ public class EnemyAttack : MonoBehaviour
         switch (enemyState)
         {
             case EnemyState.guarding:
+                if (distanceBetweenEnemyAndPlayer <= detectPlayerRange || distanceBetweenEnemyAndPlayer <= attackRange) 
+                {
+                    GetComponent<EnemyMovement>().FlipAround(FindObjectOfType<PlayerMovement>().transform);
+                }
                 if (distanceBetweenEnemyAndPlayer <= attackRange)
                 {
                     SwitchState(EnemyState.attackingRanged);
@@ -115,7 +123,13 @@ public class EnemyAttack : MonoBehaviour
 
     private void AttackRanged()
     {
-
+        Vector3 projectileSpawnPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+        Quaternion projectileRotation = transform.rotation;
+        if (transform.localScale.x < 0)
+        {
+            projectileRotation.eulerAngles = new Vector3(0f, 0f, 180f);
+        }
+        Instantiate(projectile, projectileSpawnPoint, projectileRotation);
     }
 
     private void SwitchState(EnemyState newState)
@@ -134,6 +148,10 @@ public class EnemyAttack : MonoBehaviour
                 break;
             case EnemyState.attackingMelee:
                 AttackMelee();
+                timeOfLastAttack = Time.time;
+                break;
+            case EnemyState.attackingRanged:
+                AttackRanged();
                 timeOfLastAttack = Time.time;
                 break;
         }

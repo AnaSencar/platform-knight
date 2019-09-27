@@ -158,7 +158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 1
   groundDetection: {fileID: 1623361448}
-  movementDirection: {x: 1, y: 0}
+  movementDirection: {x: 0, y: 0}
   howFarFromWallToTurnAround: 0.5
   isOnFloatingPlatform: 0
   shouldRotate: 0
@@ -326,13 +326,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9687329e39ff83b46bd0b5ac0dc71e04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 0
-  detectPlayerRange: 10
-  attackRange: 2
-  shouldChasePlayer: 1
-  attackCooldown: 5
-  isRanged: 0
-  projectile: {fileID: 0}
+  attackDamage: 10
+  detectPlayerRange: 6
+  attackRange: 4
+  shouldChasePlayer: 0
+  attackCooldown: 1
+  isRanged: 1
+  projectile: {fileID: 7652944990163102873, guid: f6f6c429e0c2a514aa556b6f8d956515,
+    type: 3}
 --- !u!1 &472011470
 GameObject:
   m_ObjectHideFlags: 0
@@ -3690,7 +3691,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1838243284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.86, y: -1.61, z: 0}
+  m_LocalPosition: {x: -6.55, y: -1.61, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 472011471}

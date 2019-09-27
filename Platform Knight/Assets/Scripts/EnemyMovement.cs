@@ -107,6 +107,18 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    public void FlipAround(Transform playerPosition)
+    {
+        if (playerPosition.transform.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector2(-1f, 1f);
+        }
+        else
+        {
+            transform.localScale = new Vector2(1f, 1f);
+        }
+    }
+
     public void StopMoving()
     {
         rigidBody.velocity = new Vector2(0f, 0f);
