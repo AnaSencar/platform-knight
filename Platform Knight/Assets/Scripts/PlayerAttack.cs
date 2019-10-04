@@ -10,26 +10,17 @@ public class PlayerAttack : MonoBehaviour
 
     private Animator animator;
     private BoxCollider2D boxCollider;
-    private float facingDirectionAtTimeOfAttack;
     private AttackTypes currentAttackType;
     private int attackTypeIndex;
-    private PlayerAttackCollision playerAC;
+    private AttackCollisionDetection playerAC;
 
     private bool isPlayerUsingRangedAttack = false;
-
-    public float FacingDirectionAtTimeOfAttack
-    {
-        get
-        {
-            return facingDirectionAtTimeOfAttack;
-        }
-    }
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         boxCollider = GetComponentInChildren<BoxCollider2D>();
-        playerAC = GetComponentInChildren<PlayerAttackCollision>();
+        playerAC = GetComponentInChildren<AttackCollisionDetection>();
         boxCollider.enabled = false;
     }
 
@@ -68,7 +59,10 @@ public class PlayerAttack : MonoBehaviour
         {
             Vector3 newSpawnPosition = projectileSpawnLocation.position;
             Quaternion newRotationForPosition = projectileSpawnLocation.rotation;
-            facingDirectionAtTimeOfAttack = transform.localScale.x; 
+            if (transform.localScale.x < 0)
+            {
+                newRotationForPosition.eulerAngles = new Vector3(0f, 0f, 180f);
+            }
             Instantiate(projectilePrefab, newSpawnPosition, newRotationForPosition);
             isPlayerUsingRangedAttack = false;
         }

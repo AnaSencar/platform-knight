@@ -22,6 +22,7 @@ public class EnemyAttack : MonoBehaviour
         guarding,
         walking,
         chasing,
+        attacking,
         attackingMelee,
         attackingRanged,
         dead
@@ -49,12 +50,13 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
+        if()
         distanceBetweenEnemyAndPlayer = Vector2.Distance(FindObjectOfType<PlayerMovement>().transform.position, transform.position);
         bool isItTimeToAttackAgain = Time.time - timeOfLastAttack > attackCooldown;
         Health enemyHealth = GetComponent<Health>();
         if (enemyHealth.IsDead)
         {
-            enemyState = EnemyState.dead;
+            SwitchState(EnemyState.dead);
         }
         switch (enemyState)
         {
@@ -65,7 +67,7 @@ public class EnemyAttack : MonoBehaviour
                 }
                 if (distanceBetweenEnemyAndPlayer <= attackRange)
                 {
-                    SwitchState(EnemyState.attackingRanged);
+                    SwitchState(EnemyState.attacking);
                 }
                 break;
             case EnemyState.walking:
@@ -82,18 +84,19 @@ public class EnemyAttack : MonoBehaviour
                 }
                 else if (distanceBetweenEnemyAndPlayer <= attackRange)
                 {
-                    SwitchState(EnemyState.attackingMelee);
+                    SwitchState(EnemyState.attacking);
                 }
                 break;
-            case EnemyState.attackingMelee:
-                ChasePlayer();
-                if (isItTimeToAttackAgain)
+            case EnemyState.attacking:
+                if (!isRanged)
+                {
+                    ChasePlayer();
+                }
+                if (isItTimeToAttackAgain && !isRanged)
                 {
                     SwitchState(EnemyState.chasing);
                 }
-                break;
-            case EnemyState.attackingRanged:
-                if (isItTimeToAttackAgain)
+                else if(isItTimeToAttackAgain && isRanged)
                 {
                     SwitchState(EnemyState.guarding);
                 }
@@ -116,20 +119,23 @@ public class EnemyAttack : MonoBehaviour
         }
     }
 
-    private void AttackMelee()
+    private void Attack()
     {
-        animator.SetTrigger("Attack");
-    }
-
-    private void AttackRanged()
-    {
-        Vector3 projectileSpawnPoint = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-        Quaternion projectileRotation = transform.rotation;
-        if (transform.localScale.x < 0)
+        if (!isRanged)
         {
-            projectileRotation.eulerAngles = new Vector3(0f, 0f, 180f);
+            animator.SetTrigger("Attack");
         }
-        Instantiate(projectile, projectileSpawnPoint, projectileRotation);
+        else
+        {
+            Transform groundDetectionPosition = GetComponent<EnemyMovement>().GroundDetection;
+            Vector3 projectileSpawnPoint = new Vector3(groundDetectionPosition.transform.position.x, groundDetectionPosition.transform.position.y + 0.5f, groundDetectionPosition.transform.position.z);
+            Quaternion projectileRotation = transform.rotation;
+            if (transform.localScale.x < 0)
+            {
+                projectileRotation.eulerAngles = new Vector3(0f, 0f, 180f);
+            }
+            Instantiate(projectile, projectileSpawnPoint, projectileRotation);
+        }
     }
 
     private void SwitchState(EnemyState newState)
@@ -142,16 +148,8 @@ public class EnemyAttack : MonoBehaviour
     {
         switch (enemyState)
         {
-            case EnemyState.walking:
-                break;
-            case EnemyState.chasing:
-                break;
-            case EnemyState.attackingMelee:
-                AttackMelee();
-                timeOfLastAttack = Time.time;
-                break;
-            case EnemyState.attackingRanged:
-                AttackRanged();
+            case EnemyState.attacking:
+                Attack();
                 timeOfLastAttack = Time.time;
                 break;
         }

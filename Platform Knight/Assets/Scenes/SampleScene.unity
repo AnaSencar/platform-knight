@@ -162,7 +162,7 @@ MonoBehaviour:
   howFarFromWallToTurnAround: 0.5
   isOnFloatingPlatform: 0
   shouldRotate: 0
-  isWalkingRightForRotating: 1
+  isWalkingRightForRotating: 0
   rotationDegrees: -90
   howMuchToMoveForRotation: 1
 --- !u!114 &442094864
@@ -327,12 +327,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 10
-  detectPlayerRange: 6
-  attackRange: 4
+  detectPlayerRange: 10
+  attackRange: 10
   shouldChasePlayer: 0
   attackCooldown: 1
   isRanged: 1
-  projectile: {fileID: 7652944990163102873, guid: f6f6c429e0c2a514aa556b6f8d956515,
+  projectile: {fileID: 5230135686346746953, guid: d29b58bda53fb4e489f3537d8038c76b,
     type: 3}
 --- !u!1 &472011470
 GameObject:
@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 472011473}
   m_Layer: 0
   m_Name: AttackCollider
-  m_TagString: Player
+  m_TagString: AttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 472011470}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c834273c5bc368f47a166cdff4a48b1b, type: 3}
+  m_Script: {fileID: 11500000, guid: 478782b82c809c04c96434038dd8f96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   attackType: {fileID: 0}
@@ -3506,7 +3506,7 @@ GameObject:
   - component: {fileID: 1377696176}
   m_Layer: 0
   m_Name: EnemyAttackCollider
-  m_TagString: Player
+  m_TagString: AttackCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3537,6 +3537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 478782b82c809c04c96434038dd8f96b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackType: {fileID: 0}
 --- !u!61 &1377696177
 BoxCollider2D:
   m_ObjectHideFlags: 0

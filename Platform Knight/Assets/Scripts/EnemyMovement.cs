@@ -24,6 +24,14 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    public Transform GroundDetection
+    {
+        get
+        {
+            return groundDetection;
+        }
+    }
+
     private void Awake()
     {
         rigidBody = GetComponent<Rigidbody2D>();
@@ -42,7 +50,6 @@ public class EnemyMovement : MonoBehaviour
         {
             checkRayVector = -transform.up;
         }
-        //if should chase, call chaseplayer else code below
         RaycastHit2D hit = Physics2D.Raycast(groundDetection.position, checkRayVector, rayDistance, LayerMask.GetMask("Ground"));
         if (hit.collider != null && !isOnFloatingPlatform)
         {

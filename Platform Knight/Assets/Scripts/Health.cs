@@ -28,7 +28,7 @@ public class Health : MonoBehaviour
             isDead = true;
             StartCoroutine(Die());
         }
-        else
+        else if (basicStats.CurrentHealth > 0) 
         {
             GetComponent<Animator>().SetTrigger("Hurt");
         }
