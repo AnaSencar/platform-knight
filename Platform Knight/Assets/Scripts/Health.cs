@@ -36,9 +36,19 @@ public class Health : MonoBehaviour
 
     private IEnumerator Die()
     {
+        RemoveColliders();
         GetComponent<Animator>().SetTrigger("Dead");
         yield return new WaitForEndOfFrame();
         Destroy(gameObject, GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
+    }
+
+    private void RemoveColliders()
+    {
+        Collider2D[] colliders = GetComponentsInChildren<Collider2D>();
+        foreach(Collider2D collider in colliders)
+        {
+            collider.enabled = false;
+        }
     }
 
 }

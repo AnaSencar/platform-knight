@@ -50,7 +50,14 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
-        if()
+        if (FindObjectOfType<PlayerMovement>() == null) 
+        {
+            return;
+        }
+        if (enemyState == EnemyState.dead)
+        {
+            return;
+        }
         distanceBetweenEnemyAndPlayer = Vector2.Distance(FindObjectOfType<PlayerMovement>().transform.position, transform.position);
         bool isItTimeToAttackAgain = Time.time - timeOfLastAttack > attackCooldown;
         Health enemyHealth = GetComponent<Health>();
