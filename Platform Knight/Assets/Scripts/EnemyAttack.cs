@@ -11,6 +11,7 @@ public class EnemyAttack : MonoBehaviour
     [SerializeField] private float attackCooldown;
     [SerializeField] private bool isRanged = false;
     [SerializeField] private GameObject projectile;
+    [SerializeField] private AttackTypes rangedAttack;
 
     private float distanceBetweenEnemyAndPlayer;
     private float timeOfLastAttack = 0f;
@@ -130,7 +131,7 @@ public class EnemyAttack : MonoBehaviour
     {
         if (!isRanged)
         {
-            animator.SetTrigger("Attack");
+            animator.SetTrigger(GameConstants.BASIC_ATTACK_ANIMATION);
         }
         else
         {
@@ -141,7 +142,10 @@ public class EnemyAttack : MonoBehaviour
             {
                 projectileRotation.eulerAngles = new Vector3(0f, 0f, 180f);
             }
-            Instantiate(projectile, projectileSpawnPoint, projectileRotation);
+            var projectileInstance = Instantiate(projectile, projectileSpawnPoint, projectileRotation);
+            projectileInstance.GetComponent<AttackCollisionDetection>().SetAttackType(rangedAttack);
+            projectileInstance.tag = GameConstants.ENEMY_PROJECTILE_TAG;
+            projectileInstance.gameObject.SetActive(true);
         }
     }
 

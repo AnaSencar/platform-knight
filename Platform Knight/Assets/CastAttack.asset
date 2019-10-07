@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 00b2bb8313f157e4096a09146940eaf6, type: 3}
-  m_Name: Attack2
+  m_Name: CastAttack
   m_EditorClassIdentifier: 
-  attackDamage: 10
+  attackDamage: 2
   manaCostUsage: 5
   isAttackAvailable: 0
+  attackName: CastAttack

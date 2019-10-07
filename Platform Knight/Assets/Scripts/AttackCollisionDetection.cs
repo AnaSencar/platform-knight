@@ -6,22 +6,13 @@ public class AttackCollisionDetection : MonoBehaviour
 {
     [SerializeField] private AttackTypes attackType;
 
-    public AttackTypes AttackType
-    {
-        set
-        {
-            attackType = value;
-        }
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == GameConstants.PLAYER_TAG)
         {
             Health playerHealth = collision.gameObject.GetComponent<Health>();
-            if (gameObject.tag != "Projectile")
+            if (gameObject.tag != GameConstants.ENEMY_PROJECTILE_TAG)
             {
-                //TODO remove colliders of thing thats dying
                 if (!GetComponentInParent<Health>().IsDead)
                 {
                     playerHealth.TakeDamage(GetComponentInParent<EnemyAttack>().AttackDamage);
@@ -29,28 +20,35 @@ public class AttackCollisionDetection : MonoBehaviour
             }
             else
             {
-                playerHealth.TakeDamage(5);
+                playerHealth.TakeDamage(attackType.AttackDamage);
                 Destroy(gameObject);
             }
         }
-        else if (collision.gameObject.tag == "Enemy")
+        else if (collision.gameObject.tag == GameConstants.ENEMY_TAG && gameObject.tag != GameConstants.ENEMY_TAG) 
         {
             Health enemyHealth = collision.gameObject.GetComponent<Health>();
-            //enemyHealth.TakeDamage(GetComponentInParent<PlayerAttack>().AttackDamage);
-            if (gameObject.tag != "Projectile")
+            if (gameObject.tag == GameConstants.PLAYER_PROJECTILE_TAG)
             {
-                enemyHealth.TakeDamage(10);
-            }
-            else
-            {
-                Debug.Log("Enemy hit by projectile");
-                enemyHealth.TakeDamage(5);
+                Debug.Log(attackType.AttackDamage);
+                enemyHealth.TakeDamage(attackType.AttackDamage);
                 Destroy(gameObject);
             }
+            else if (gameObject.tag != GameConstants.ENEMY_PROJECTILE_TAG) 
+            {
+                Debug.Log(attackType.AttackDamage);
+                enemyHealth.TakeDamage(attackType.AttackDamage);
+            }
         }
-        if (gameObject.tag == "Projectile" && collision.gameObject.tag != "Enemy" && collision.gameObject.tag != "Player" && collision.gameObject.tag != "Projectile") 
+
+        if ((gameObject.tag == GameConstants.ENEMY_PROJECTILE_TAG || gameObject.tag == GameConstants.PLAYER_PROJECTILE_TAG) && collision.gameObject.layer == LayerMask.NameToLayer(GameConstants.GROUND_LAYER)) 
         {
             Destroy(gameObject);
         }
     }
+
+    public void SetAttackType(AttackTypes newAttackType)
+    {
+        attackType = newAttackType;
+    }
+
 }

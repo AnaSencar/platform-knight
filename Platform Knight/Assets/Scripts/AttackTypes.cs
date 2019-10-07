@@ -8,6 +8,7 @@ public class AttackTypes : ScriptableObject
     [SerializeField] private int attackDamage;
     [SerializeField] private int manaCostUsage;
     [SerializeField] private bool isAttackAvailable;
+    [SerializeField] private string attackName;
 
     public int AttackDamage
     {
@@ -38,6 +39,14 @@ public class AttackTypes : ScriptableObject
         set
         {
             isAttackAvailable = value;
+        }
+    }
+
+    public string AttackName
+    {
+        get
+        {
+            return attackName;
         }
     }
 

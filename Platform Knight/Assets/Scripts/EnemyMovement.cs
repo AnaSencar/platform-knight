@@ -50,7 +50,7 @@ public class EnemyMovement : MonoBehaviour
         {
             checkRayVector = -transform.up;
         }
-        RaycastHit2D hit = Physics2D.Raycast(groundDetection.position, checkRayVector, rayDistance, LayerMask.GetMask("Ground"));
+        RaycastHit2D hit = Physics2D.Raycast(groundDetection.position, checkRayVector, rayDistance, LayerMask.GetMask(GameConstants.GROUND_LAYER));
         if (hit.collider != null && !isOnFloatingPlatform)
         {
             Vector2 objectPosition = new Vector2(groundDetection.transform.position.x, groundDetection.transform.position.y);

@@ -29,6 +29,26 @@ public class BasicStats : MonoBehaviour
         }
     }
 
+    public int MaxMana
+    {
+        get
+        {
+            return maxMana;
+        }
+    }
+
+    public int CurrentMana
+    {
+        get
+        {
+            return currentMana;
+        }
+        set
+        {
+            currentMana = value;
+        }
+    }
+
     private void Awake()
     {
         currentHealth = maxHealth;

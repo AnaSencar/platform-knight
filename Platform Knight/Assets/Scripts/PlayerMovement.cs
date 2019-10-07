@@ -39,7 +39,7 @@ public class PlayerMovement : MonoBehaviour
     {
         float sideToMove = Input.GetAxis("Horizontal");
         rigidBody.velocity = new Vector2(sideToMove * moveSpeed, rigidBody.velocity.y);
-        animator.SetBool("isWalking", IsPlayerMoving());
+        animator.SetBool(GameConstants.ISWALKING_ANIM_PAR, IsPlayerMoving());
     }
 
     private void Jump()
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
     private bool IsTouchingGround()
     {
-        return capsuleCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        return capsuleCollider.IsTouchingLayers(LayerMask.GetMask(GameConstants.GROUND_LAYER));
     }
 
 }

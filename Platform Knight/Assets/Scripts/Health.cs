@@ -6,12 +6,21 @@ public class Health : MonoBehaviour
 {
     private BasicStats basicStats;
     private bool isDead = false;
+    private bool canAttack = true;
 
     public bool IsDead
     {
         get
         {
             return isDead;
+        }
+    }
+
+    public bool CanAttack
+    {
+        get
+        {
+            return canAttack;
         }
     }
 
@@ -30,14 +39,24 @@ public class Health : MonoBehaviour
         }
         else if (basicStats.CurrentHealth > 0) 
         {
-            GetComponent<Animator>().SetTrigger("Hurt");
+            StartCoroutine(GettingHurt());
         }
+    }
+
+    private IEnumerator GettingHurt()
+    {
+        canAttack = false;
+        GetComponent<Animator>().SetTrigger(GameConstants.HURT_ANIMATION);
+        RemoveAttackCollider();
+        float animationLength = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(animationLength);
+        canAttack = true;
     }
 
     private IEnumerator Die()
     {
         RemoveColliders();
-        GetComponent<Animator>().SetTrigger("Dead");
+        GetComponent<Animator>().SetTrigger(GameConstants.DEAD_ANIMATION);
         yield return new WaitForEndOfFrame();
         Destroy(gameObject, GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length);
     }
@@ -49,6 +68,11 @@ public class Health : MonoBehaviour
         {
             collider.enabled = false;
         }
+    }
+
+    private void RemoveAttackCollider()
+    {
+        GetComponentInChildren<BoxCollider2D>().enabled = false;
     }
 
 }
