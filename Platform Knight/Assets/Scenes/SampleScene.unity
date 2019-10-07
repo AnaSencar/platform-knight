@@ -189,10 +189,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cd89723715a465458740e6517fd0f53, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 4
   currentHealth: 0
   maxMana: 0
   currentMana: 0
+  manaToGiveAfterKilled: 5
 --- !u!95 &442094866
 Animator:
   serializedVersion: 3
@@ -2490,6 +2491,7 @@ MonoBehaviour:
   currentHealth: 0
   maxMana: 0
   currentMana: 0
+  manaToGiveAfterKilled: 0
 --- !u!95 &1045518401
 Animator:
   serializedVersion: 3
@@ -4047,6 +4049,7 @@ MonoBehaviour:
   currentHealth: 0
   maxMana: 10
   currentMana: 10
+  manaToGiveAfterKilled: 0
 --- !u!1 &1982533653
 GameObject:
   m_ObjectHideFlags: 0

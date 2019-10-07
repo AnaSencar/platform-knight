@@ -8,7 +8,6 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform projectileSpawnLocation;
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private AttackTypes currentAttackType;
     [SerializeField] private AttackTypes[] allAttackTypes;
 
     private Animator animator;

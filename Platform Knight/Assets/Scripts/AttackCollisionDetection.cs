@@ -24,19 +24,24 @@ public class AttackCollisionDetection : MonoBehaviour
                 Destroy(gameObject);
             }
         }
-        else if (collision.gameObject.tag == GameConstants.ENEMY_TAG && gameObject.tag != GameConstants.ENEMY_TAG) 
+        else if (collision.gameObject.tag == GameConstants.ENEMY_TAG && gameObject.tag != GameConstants.ENEMY_TAG && gameObject.tag != GameConstants.ENEMY_PROJECTILE_TAG) 
         {
             Health enemyHealth = collision.gameObject.GetComponent<Health>();
+            enemyHealth.TakeDamage(attackType.AttackDamage);
+            if (enemyHealth.IsDead) 
+            {
+                if (gameObject.tag != GameConstants.PLAYER_PROJECTILE_TAG)
+                {
+                    gameObject.GetComponentInParent<BasicStats>().RegainMana(collision.gameObject.GetComponent<BasicStats>().ManaToGiveAfterKilled);
+                }
+                else
+                {
+                    FindObjectOfType<PlayerMovement>().GetComponent<BasicStats>().RegainMana(collision.gameObject.GetComponent<BasicStats>().ManaToGiveAfterKilled);
+                }
+            }
             if (gameObject.tag == GameConstants.PLAYER_PROJECTILE_TAG)
             {
-                Debug.Log(attackType.AttackDamage);
-                enemyHealth.TakeDamage(attackType.AttackDamage);
                 Destroy(gameObject);
-            }
-            else if (gameObject.tag != GameConstants.ENEMY_PROJECTILE_TAG) 
-            {
-                Debug.Log(attackType.AttackDamage);
-                enemyHealth.TakeDamage(attackType.AttackDamage);
             }
         }
 
