@@ -68,4 +68,9 @@ public class PlayerMovement : MonoBehaviour
         return capsuleCollider.IsTouchingLayers(LayerMask.GetMask(GameConstants.GROUND_LAYER));
     }
 
+    public void PushPlayer(Vector2 pushDirection, float pushForce)
+    {
+        rigidBody.AddForce(pushDirection * pushForce);
+    }
+
 }

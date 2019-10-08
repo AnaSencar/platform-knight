@@ -75,4 +75,9 @@ public class Health : MonoBehaviour
         GetComponentInChildren<BoxCollider2D>().enabled = false;
     }
 
+    public void RegainHealth(int regainAmount)
+    {
+        basicStats.CurrentHealth = Mathf.Clamp(basicStats.CurrentHealth + regainAmount, 0, basicStats.MaxHealth);
+    }
+
 }

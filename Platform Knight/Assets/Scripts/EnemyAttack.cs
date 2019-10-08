@@ -59,6 +59,7 @@ public class EnemyAttack : MonoBehaviour
         {
             return;
         }
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, new Vector2(transform.localScale.x, 0f), detectPlayerRange, LayerMask.GetMask("Player"));
         distanceBetweenEnemyAndPlayer = Vector2.Distance(FindObjectOfType<PlayerMovement>().transform.position, transform.position);
         bool isItTimeToAttackAgain = Time.time - timeOfLastAttack > attackCooldown;
         Health enemyHealth = GetComponent<Health>();
@@ -69,28 +70,28 @@ public class EnemyAttack : MonoBehaviour
         switch (enemyState)
         {
             case EnemyState.guarding:
-                if (distanceBetweenEnemyAndPlayer <= detectPlayerRange || distanceBetweenEnemyAndPlayer <= attackRange) 
+                if (distanceBetweenEnemyAndPlayer <= detectPlayerRange || distanceBetweenEnemyAndPlayer <= attackRange)
                 {
                     GetComponent<EnemyMovement>().FlipAround(FindObjectOfType<PlayerMovement>().transform);
                 }
-                if (distanceBetweenEnemyAndPlayer <= attackRange)
+                if (distanceBetweenEnemyAndPlayer <= attackRange && hit.collider != null) 
                 {
                     SwitchState(EnemyState.attacking);
                 }
                 break;
             case EnemyState.walking:
-                if(distanceBetweenEnemyAndPlayer <= detectPlayerRange)
+                if (distanceBetweenEnemyAndPlayer <= detectPlayerRange)
                 {
                     SwitchState(EnemyState.chasing);
                 }
                 break;
             case EnemyState.chasing:
                 ChasePlayer();
-                if(distanceBetweenEnemyAndPlayer > detectPlayerRange)
+                if (distanceBetweenEnemyAndPlayer > detectPlayerRange)
                 {
                     SwitchState(EnemyState.walking);
                 }
-                else if (distanceBetweenEnemyAndPlayer <= attackRange)
+                else if (distanceBetweenEnemyAndPlayer <= attackRange && hit.collider != null) 
                 {
                     SwitchState(EnemyState.attacking);
                 }
@@ -104,7 +105,7 @@ public class EnemyAttack : MonoBehaviour
                 {
                     SwitchState(EnemyState.chasing);
                 }
-                else if(isItTimeToAttackAgain && isRanged)
+                else if (isItTimeToAttackAgain && isRanged)
                 {
                     SwitchState(EnemyState.guarding);
                 }

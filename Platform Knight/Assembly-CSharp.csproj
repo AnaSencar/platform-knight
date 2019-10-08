@@ -65,6 +65,7 @@
     <Compile Include="Assets\Scripts\AttackCollisionDetection.cs" />
     <Compile Include="Assets\Scripts\AttackTypes.cs" />
     <Compile Include="Assets\Scripts\BasicStats.cs" />
+    <Compile Include="Assets\Scripts\BodyCollision.cs" />
     <Compile Include="Assets\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\GameConstants.cs" />

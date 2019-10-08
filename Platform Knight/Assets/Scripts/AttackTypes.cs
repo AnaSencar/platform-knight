@@ -6,6 +6,7 @@ using UnityEngine;
 public class AttackTypes : ScriptableObject
 {
     [SerializeField] private int attackDamage;
+    [SerializeField] private int healAmount;
     [SerializeField] private int manaCostUsage;
     [SerializeField] private bool isAttackAvailable;
     [SerializeField] private string attackName;
@@ -47,6 +48,14 @@ public class AttackTypes : ScriptableObject
         get
         {
             return attackName;
+        }
+    }
+
+    public int HealAmount
+    {
+        get
+        {
+            return healAmount;
         }
     }
 

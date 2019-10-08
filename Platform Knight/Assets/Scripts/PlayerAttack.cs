@@ -17,6 +17,7 @@ public class PlayerAttack : MonoBehaviour
     private AttackCollisionDetection attackDetection;
     private Dictionary<string, AttackTypes> attackTypesDictionary = new Dictionary<string, AttackTypes>();
     private bool isPlayerUsingRangedAttack = false;
+    private bool isHealing = false;
 
     private void Awake()
     {
@@ -46,6 +47,11 @@ public class PlayerAttack : MonoBehaviour
                 isPlayerUsingRangedAttack = true;
                 StartCoroutine(Attack(GameConstants.CAST_ATTACK_ANIMATION));
             }
+            else if (Input.GetKeyDown(KeyCode.H))
+            {
+                isHealing = true;
+                StartCoroutine(Attack(GameConstants.HEAL_ANIMATION));
+            }
         }
     }
 
@@ -56,12 +62,16 @@ public class PlayerAttack : MonoBehaviour
             basicStats.CurrentMana -= attackTypesDictionary[attackName].ManaCostUsage;
             timeOfLastAttack = Time.time;
             animator.SetTrigger(attackName);
-            if (!isPlayerUsingRangedAttack)
+            if (!isPlayerUsingRangedAttack & !isHealing) 
             {
                 attackDetection.SetAttackType(attackTypesDictionary[attackName]);
             }
+            if (isHealing)
+            {
+                GetComponent<Health>().RegainHealth(attackTypesDictionary[attackName].HealAmount);
+            }
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-            if (isPlayerUsingRangedAttack)
+            if (isPlayerUsingRangedAttack & !isHealing)
             {
                 Vector3 newSpawnPosition = projectileSpawnLocation.position;
                 Quaternion newRotationForPosition = projectileSpawnLocation.rotation;
@@ -77,6 +87,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         isPlayerUsingRangedAttack = false;
+        isHealing = false;
     }
 
     private void SetUpAttackTypesDictionary()
