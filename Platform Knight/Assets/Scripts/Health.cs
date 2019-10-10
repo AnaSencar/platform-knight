@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
 {
     private BasicStats basicStats;
     private bool isDead = false;
-    private bool canAttack = true;
+    private bool canDoActions = true;
 
     public bool IsDead
     {
@@ -16,11 +16,11 @@ public class Health : MonoBehaviour
         }
     }
 
-    public bool CanAttack
+    public bool CanDoActions
     {
         get
         {
-            return canAttack;
+            return canDoActions;
         }
     }
 
@@ -45,12 +45,12 @@ public class Health : MonoBehaviour
 
     private IEnumerator GettingHurt()
     {
-        canAttack = false;
+        canDoActions = false;
         GetComponent<Animator>().SetTrigger(GameConstants.HURT_ANIMATION);
         RemoveAttackCollider();
         float animationLength = GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(animationLength);
-        canAttack = true;
+        canDoActions = true;
     }
 
     private IEnumerator Die()

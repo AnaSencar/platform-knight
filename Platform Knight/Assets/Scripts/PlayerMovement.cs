@@ -27,12 +27,15 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Move();
-        if (Input.GetButtonDown("Jump"))
+        if (GetComponent<Health>().CanDoActions)
         {
-            Jump();
+            Move();
+            if (Input.GetButtonDown("Jump"))
+            {
+                Jump();
+            }
+            ChangeDirection();
         }
-        ChangeDirection();
     }
 
     private void Move()

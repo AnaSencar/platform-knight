@@ -13,8 +13,8 @@ public class BodyCollision : MonoBehaviour
         if (collision.gameObject.tag == GameConstants.PLAYER_TAG)
         {
             pushDirection = (collision.transform.position - transform.position).normalized;
-            collision.gameObject.GetComponent<PlayerMovement>().PushPlayer(pushDirection, pushForce);
             collision.gameObject.GetComponent<Health>().TakeDamage(damageToDeal);
+            collision.gameObject.GetComponent<PlayerMovement>().PushPlayer(pushDirection, pushForce);
         }
     }
 }

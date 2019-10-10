@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
     void Update()
     {
         bool canAttackAgain = Time.time - timeOfLastAttack > attackCooldown;
-        if (GetComponent<Health>().CanAttack && canAttackAgain)
+        if (GetComponent<Health>().CanDoActions && canAttackAgain)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
