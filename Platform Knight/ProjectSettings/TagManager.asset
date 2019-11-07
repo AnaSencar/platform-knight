@@ -9,6 +9,8 @@ TagManager:
   - PlayerProjectile
   - EnemyProjectile
   - Projectile
+  - UpgradeScreen
+  - Background
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Ground
   - Hazards
   - Player
-  - 
+  - Background
   - 
   - 
   - 

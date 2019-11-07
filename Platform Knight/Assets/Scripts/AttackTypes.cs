@@ -9,6 +9,9 @@ public class AttackTypes : ScriptableObject
     [SerializeField] private int healAmount;
     [SerializeField] private int manaCostUsage;
     [SerializeField] private bool isAttackAvailable;
+    [SerializeField] private int currentSkillLevel = 1;
+    [SerializeField] private int maxSkillLevel = 20;
+    [SerializeField] private int upgradeCost;
     [SerializeField] private string attackName;
 
     public int AttackDamage
@@ -57,6 +60,44 @@ public class AttackTypes : ScriptableObject
         {
             return healAmount;
         }
+    }
+
+    public int CurrentSkillLevel
+    {
+        get
+        {
+            return currentSkillLevel;
+        }
+        set
+        {
+            currentSkillLevel = value;
+        }
+    }
+
+    public int MaxSkillLevel
+    {
+        get
+        {
+            return maxSkillLevel;
+        }
+    }
+
+    public int UpgradeCost
+    {
+        get
+        {
+            return upgradeCost;
+        }
+    }
+
+    public void IncreaseUpgradeCost()
+    {
+        upgradeCost *= 2;
+    }
+
+    public void IncreaseAttackDamage()
+    {
+        attackDamage += 2;
     }
 
 }

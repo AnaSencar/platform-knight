@@ -8,7 +8,9 @@ public class BasicStats : MonoBehaviour
     [SerializeField] private int currentHealth;
     [SerializeField] private int maxMana;
     [SerializeField] private int currentMana = 0;
+    [SerializeField] private int totalCoins = 0;
     [SerializeField] private int manaToGiveAfterKilled = 0;
+    [SerializeField] private int coinsToGiveAfterKilled = 0;
 
     public int MaxHealth
     {
@@ -50,11 +52,27 @@ public class BasicStats : MonoBehaviour
         }
     }
 
+    public int TotalCoins
+    {
+        get
+        {
+            return totalCoins;
+        }
+    }
+
     public int ManaToGiveAfterKilled
     {
         get
         {
             return manaToGiveAfterKilled;
+        }
+    }
+
+    public int CoinsToGiveAfterKilled
+    {
+        get
+        {
+            return coinsToGiveAfterKilled;
         }
     }
 
@@ -66,6 +84,11 @@ public class BasicStats : MonoBehaviour
     public void RegainMana(int manaToGain)
     {
         currentMana = Mathf.Clamp(currentMana + manaToGain, 0, maxMana);
+    }
+
+    public void GetCoins(int coinsToGain)
+    {
+        totalCoins += coinsToGain;
     }
 
 }

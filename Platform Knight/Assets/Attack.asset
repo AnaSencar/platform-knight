@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: Attack
   m_EditorClassIdentifier: 
   attackDamage: 5
+  healAmount: 0
   manaCostUsage: 0
   isAttackAvailable: 0
+  currentSkillLevel: 1
+  maxSkillLevel: 20
+  upgradeCost: 0
   attackName: Attack

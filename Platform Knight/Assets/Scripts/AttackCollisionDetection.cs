@@ -33,10 +33,12 @@ public class AttackCollisionDetection : MonoBehaviour
                 if (gameObject.tag != GameConstants.PLAYER_PROJECTILE_TAG)
                 {
                     gameObject.GetComponentInParent<BasicStats>().RegainMana(collision.gameObject.GetComponent<BasicStats>().ManaToGiveAfterKilled);
+                    gameObject.GetComponentInParent<BasicStats>().GetCoins(collision.gameObject.GetComponent<BasicStats>().CoinsToGiveAfterKilled);
                 }
                 else
                 {
                     FindObjectOfType<PlayerMovement>().GetComponent<BasicStats>().RegainMana(collision.gameObject.GetComponent<BasicStats>().ManaToGiveAfterKilled);
+                    FindObjectOfType<PlayerMovement>().GetComponent<BasicStats>().GetCoins(collision.gameObject.GetComponent<BasicStats>().CoinsToGiveAfterKilled);
                 }
             }
             if (gameObject.tag == GameConstants.PLAYER_PROJECTILE_TAG)

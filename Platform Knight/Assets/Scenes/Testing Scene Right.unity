@@ -794,6 +794,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3335502984501502541, guid: fee8b83295fbfce4c814955492210bfd,
+        type: 3}
+      propertyPath: sceneToLoad
+      value: SampleScene
+      objectReference: {fileID: 0}
     - target: {fileID: 3335502984856381990, guid: fee8b83295fbfce4c814955492210bfd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -803,11 +808,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3335502984501502541, guid: fee8b83295fbfce4c814955492210bfd,
-        type: 3}
-      propertyPath: sceneToLoad
-      value: SampleScene
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fee8b83295fbfce4c814955492210bfd, type: 3}
@@ -2633,7 +2633,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1364229911
 AudioListener:
   m_ObjectHideFlags: 0

@@ -31,6 +31,7 @@ public class Portal : MonoBehaviour
         EnableOrDisablePlayerMovementAndAttack(player, false);
         yield return fader.FadeOut();
         yield return SceneManager.LoadSceneAsync(sceneToLoad);
+        FindObjectOfType<CameraSetup>().SetPlayerAndBackground();
         Portal portalOnWhichToSpawn = GetCorrespondingPortal();
         UpdatePlayerLocation(portalOnWhichToSpawn, player);
         yield return new WaitForSeconds(timeToWaitForFader);

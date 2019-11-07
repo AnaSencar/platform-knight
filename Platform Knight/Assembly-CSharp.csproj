@@ -66,6 +66,8 @@
     <Compile Include="Assets\Scripts\AttackTypes.cs" />
     <Compile Include="Assets\Scripts\BasicStats.cs" />
     <Compile Include="Assets\Scripts\BodyCollision.cs" />
+    <Compile Include="Assets\Scripts\CameraSetup.cs" />
+    <Compile Include="Assets\Scripts\CoinsUI.cs" />
     <Compile Include="Assets\Scripts\EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />
     <Compile Include="Assets\Scripts\FaderSystem.cs" />
@@ -79,6 +81,8 @@
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
     <Compile Include="Assets\Scripts\Portal.cs" />
     <Compile Include="Assets\Scripts\ProjectileMovement.cs" />
+    <Compile Include="Assets\Scripts\UpgradeScreen.cs" />
+    <Compile Include="Assets\Scripts\UpgradeScreenHandler.cs" />
     <Compile Include="Assets\sprite muzzle flashes\AnimatedTexture.cs" />
     <None Include="Assets\Knight Files\Read Me.txt" />
     <Reference Include="Unity.Timeline.Editor">

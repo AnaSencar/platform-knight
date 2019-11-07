@@ -17,4 +17,6 @@ public static class GameConstants
     public const string HURT_ANIMATION = "Hurt";
     public const string DEAD_ANIMATION = "Dead";
     public const string ISWALKING_ANIM_PAR = "isWalking";
+    public const string UPGRADE_SCREEN_TAG = "UpgradeScreen";
+    public const string BACKGROUND_TAG = "Background";
 }
